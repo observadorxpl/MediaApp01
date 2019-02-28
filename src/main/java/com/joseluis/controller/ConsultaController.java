@@ -21,7 +21,7 @@ import com.joseluis.service.IConsultaService;
 public class ConsultaController {
 	@Autowired
 	private IConsultaService service;
-	// PRUEBA
+
 	@GetMapping(value = "/listar", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<List<Consulta>> listar(){
 		List<Consulta> lista = new ArrayList<>();

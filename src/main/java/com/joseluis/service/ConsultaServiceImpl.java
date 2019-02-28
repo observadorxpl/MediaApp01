@@ -2,6 +2,7 @@ package com.joseluis.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +18,20 @@ public class ConsultaServiceImpl implements IConsultaService{
 	private IConsultaDAO dao;
 	@Autowired
 	private IConsultaExamenDAO dce;
+
+
 	@Override
-	
 	public Consulta registrar(ConsultaListaExamen dto) {
 		Consulta cons = new Consulta();
 		try {
 			dto.getConsulta().getDetalleConsulta().forEach(d -> {d.setConsulta(dto.getConsulta());});
 			cons = dao.save(dto.getConsulta());
+			
+			System.out.println(dto.getConsulta().getIdConsulta());
+			
 			dto.getExamenes().forEach(e -> {dce.registrar(dto.getConsulta().getIdConsulta(), e.getIdExamen());});
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e.getMessage());
 		}
 		return cons;
 		

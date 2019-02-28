@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.joseluis.model.Consulta;
 import com.joseluis.service.IConsultaService;
+import com.joseluis.util.ConsultaListaExamen;
 
 @RestController
 @RequestMapping(value= "/consulta")
@@ -35,7 +36,7 @@ public class ConsultaController {
 		
 	
 	@PostMapping(value = "/registrar", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Consulta> registrar(@RequestBody Consulta consulta){
+	public ResponseEntity<Consulta> registrar(@RequestBody ConsultaListaExamen consulta){
 		Consulta con = new Consulta();
 		try {
 			con = service.registrar(consulta);

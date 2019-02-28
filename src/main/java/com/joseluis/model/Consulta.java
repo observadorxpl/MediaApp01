@@ -33,6 +33,7 @@ public class Consulta {
 	
 	@JsonSerialize(using = ToStringSerializer.class)
 	private LocalDateTime fecha;
+	//aaaa-MM-dd-HH-mm-ss.zzz
 	
 
 	@ManyToOne

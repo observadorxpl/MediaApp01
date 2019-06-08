@@ -10,4 +10,5 @@ public interface IMedicoService {
 	void eliminar(int idMedico);
 	Medico listarId(int idPMedico);
 	List<Medico> listar();
+
 }

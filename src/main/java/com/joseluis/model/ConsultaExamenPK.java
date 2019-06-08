@@ -10,8 +10,8 @@ import javax.persistence.ManyToOne;
 @Embeddable
 public class ConsultaExamenPK  implements Serializable{
 
-	
-	
+	private static final long serialVersionUID = 1L;
+
 	/*
 	 * CLASE ESPECIAL PARA LLAVES PRIMARIAS COMPUESTAS, 
 	 * SI SE DESEA GENERAR LLAVES PRIMARIAS COMPUESTAS 

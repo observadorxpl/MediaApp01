@@ -14,6 +14,8 @@ import javax.persistence.Table;
 // 		 Clase que representa ID_CONSLTA Y ID_EXAMEN
 @IdClass(ConsultaExamenPK.class)
 public class ConsultaExamen implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	@Id
 	private Consulta consulta;
 	@Id

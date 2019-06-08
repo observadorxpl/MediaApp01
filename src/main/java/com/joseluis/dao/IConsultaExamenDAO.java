@@ -19,5 +19,6 @@ public interface IConsultaExamenDAO extends JpaRepository<ConsultaExamen, Intege
 	@Modifying
 	@Query(value = "INSERT INTO CONSULTA_EXAMEN(ID_CONSULTA, ID_EXAMEN) VALUES  (:idConsulta, :idExamen)", nativeQuery = true)
 	//METODO MANUAL
-	int registrar(@Param ("idConsulta")int idConsulta, @Param("idExamen") int idExamen);
+	int registrar(@Param("idConsulta")Integer idConsulta, @Param("idExamen") Integer idExamen);
+	//int cambiado por Integer
 }

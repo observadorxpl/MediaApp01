@@ -1,5 +1,6 @@
 package com.joseluis.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,7 +20,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 @Entity
 @Table(name= "CONSULTA")
-public class Consulta {
+public class Consulta implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
+
 	@Id
 	@Column(name= "ID_CONSULTA")
 	@GeneratedValue(generator= "seq_Consulta")

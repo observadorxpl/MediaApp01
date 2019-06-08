@@ -1,11 +1,13 @@
 package com.joseluis.util;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.joseluis.model.Consulta;
 import com.joseluis.model.Examen;
 //CLASE DTO QUE AYUDA A LAS CONSULTAS PERSONALIZADAS
-public class ConsultaListaExamen {
+// SE DEBE IMPLEMENTAR SERIALIZABLE
+public class ConsultaListaExamen implements Serializable {
 	private Consulta consulta;
 	private List<Examen> examenes;
 	

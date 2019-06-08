@@ -25,7 +25,7 @@ public class PacienteController {
 	@Autowired
 	private IPacienteService service;
 	
-@GetMapping(value="/listar", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@GetMapping
 	public ResponseEntity <List<Paciente>> listar(){
 		List<Paciente> lista = new ArrayList<>();
 		try {
@@ -48,7 +48,7 @@ public class PacienteController {
 		return new ResponseEntity<Paciente>(per, HttpStatus.OK);
 	}
 
-@PutMapping(value = "/modificar", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+@PutMapping
 	public ResponseEntity<Integer> actualizar(@RequestBody Paciente paciente) {
 		int sw = 0;
 		try {
@@ -73,7 +73,7 @@ public ResponseEntity<Integer> eliminar(@PathVariable("id") int idPaciente) {
 	}
 	return new ResponseEntity<Integer>(sw, HttpStatus.OK);
 }
-@GetMapping(value= "/listar/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@GetMapping("/{id}")
 	public ResponseEntity<Paciente> listarxId(@PathVariable("id") int id) {
 		Paciente paciente = new Paciente();
 		try {

@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.joseluis.dao.IConsultaDAO;
-import com.joseluis.dao.IConsultaExamenDAO;
 import com.joseluis.model.Consulta;
+import com.joseluis.repository.IConsultaDAO;
+import com.joseluis.repository.IConsultaExamenDAO;
 import com.joseluis.util.ConsultaListaExamen;
 
 
@@ -21,21 +21,23 @@ public class ConsultaServiceImpl implements IConsultaService{
 	@Autowired
 	private IConsultaExamenDAO dce;
 
-	//@Transactional
 	@Override
-	public Consulta registrar(ConsultaListaExamen dto) {
-		Consulta cons = new Consulta();
+	public Consulta registrarTransaccional(ConsultaListaExamen dto) {
 		try {
 			dto.getConsulta().getDetalleConsulta().forEach(d -> d.setConsulta(dto.getConsulta()));
-			cons = dao.save(dto.getConsulta());
+			dao.save(dto.getConsulta());
 			
-			//System.out.println(dto.getConsulta().getIdConsulta());
 			
-			dto.getExamenes().forEach(e -> dce.registrar(dto.getConsulta().getIdConsulta(), e.getIdExamen()));
+			
+			dto.getExamenes().forEach(e -> {
+				System.out.println("ID CONSULTA: "+ dto.getConsulta().getIdConsulta() +
+						"IDEXAMEN: " + e.getIdExamen());
+				dce.registrar(dto.getConsulta().getIdConsulta(), e.getIdExamen());
+				});
 		} catch (Exception e) {
 			System.out.println("Exception : " + e.getMessage());
 		}
-		return cons;
+		return dto.getConsulta();
 		
 		/*for(DetalleConsulta det: consulta.getDetalleConsulta()){
 			det.setConsulta(consulta);
@@ -47,8 +49,14 @@ public class ConsultaServiceImpl implements IConsultaService{
 	}
 
 	@Override
-	public void modificar(Consulta consulta) {
-		dao.save(consulta);
+	public Consulta registrar(Consulta cons) {	
+		//Consulta sin examenes, solo con detalles(Diagnostico, tratamiento)
+		cons.getDetalleConsulta().forEach(det -> det.setConsulta(cons));
+		return dao.save(cons);
+	}
+	@Override
+	public Consulta modificar(Consulta consulta) {
+		return dao.save(consulta);
 	}
 
 	@Override

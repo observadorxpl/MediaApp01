@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,60 +19,50 @@ import com.joseluis.model.Paciente;
 import com.joseluis.service.IPacienteService;
 
 @RestController
-@RequestMapping(value= "/paciente")
+@RequestMapping(value = "/pacientes")
 public class PacienteController {
 	@Autowired
 	private IPacienteService service;
-	
-@GetMapping
-	public ResponseEntity <List<Paciente>> listar(){
+
+	@GetMapping
+	public ResponseEntity<List<Paciente>> listar() {
 		List<Paciente> lista = new ArrayList<>();
 		try {
 			lista = service.listar();
-			System.out.println(lista);
 		} catch (Exception e) {
-			new ResponseEntity <List<Paciente>>(lista, HttpStatus.INTERNAL_SERVER_ERROR);
+			new ResponseEntity<List<Paciente>>(lista, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<List<Paciente>>(lista, HttpStatus.OK);
 	}
 
-@PostMapping(value = "/registrar", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping
 	public ResponseEntity<Paciente> registrar(@RequestBody Paciente paciente) {
-		Paciente per = new Paciente();
+		Paciente pac = new Paciente();
 		try {
-			per = service.registrar(paciente);
+			pac = service.registrar(paciente);
 		} catch (Exception e) {
-			new ResponseEntity<Paciente>(per, HttpStatus.INTERNAL_SERVER_ERROR);
+			new ResponseEntity<Paciente>(pac, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<Paciente>(per, HttpStatus.OK);
+		return new ResponseEntity<Paciente>(pac, HttpStatus.OK);
 	}
 
-@PutMapping
-	public ResponseEntity<Integer> actualizar(@RequestBody Paciente paciente) {
-		int sw = 0;
+	@PutMapping
+	public ResponseEntity<Paciente> actualizar(@RequestBody Paciente paciente) {
+		Paciente pac = new Paciente();
 		try {
-			service.modificar(paciente);
-			System.out.println(paciente);
-			sw = 1;
+			pac = service.modificar(paciente);
 		} catch (Exception e) {
-			new ResponseEntity<Integer>(sw, HttpStatus.INTERNAL_SERVER_ERROR);
+			new ResponseEntity<Paciente>(pac, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<Integer>(sw, HttpStatus.OK);
-	} 
-	
-
-@DeleteMapping(value = "/eliminar/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public ResponseEntity<Integer> eliminar(@PathVariable("id") int idPaciente) {
-	int sw = 0;
-	try {
-		service.eliminar(idPaciente);
-		sw= 1;
-	} catch (Exception e) {
-		new ResponseEntity<Integer>(sw, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<Paciente>(pac, HttpStatus.OK);
 	}
-	return new ResponseEntity<Integer>(sw, HttpStatus.OK);
-}
-@GetMapping("/{id}")
+
+	@DeleteMapping(value = "/{id}")
+	public void eliminar(@PathVariable("id") int idPaciente) {
+			service.eliminar(idPaciente);
+	}
+
+	@GetMapping("/{id}")
 	public ResponseEntity<Paciente> listarxId(@PathVariable("id") int id) {
 		Paciente paciente = new Paciente();
 		try {
@@ -81,7 +70,7 @@ public ResponseEntity<Integer> eliminar(@PathVariable("id") int idPaciente) {
 		} catch (Exception e) {
 			new ResponseEntity<Paciente>(paciente, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-			return new ResponseEntity<Paciente>(paciente, HttpStatus.OK);
+		return new ResponseEntity<Paciente>(paciente, HttpStatus.OK);
 	}
-	
+
 }

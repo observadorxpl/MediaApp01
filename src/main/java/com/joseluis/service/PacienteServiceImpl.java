@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.joseluis.dao.IPacienteDAO;
 import com.joseluis.model.Paciente;
+import com.joseluis.repository.IPacienteDAO;
 
 @Service
 public class PacienteServiceImpl implements IPacienteService{
@@ -18,8 +18,8 @@ public class PacienteServiceImpl implements IPacienteService{
 	}
 
 	@Override
-	public void modificar(Paciente paciente) {
-		dao.save(paciente);
+	public Paciente modificar(Paciente paciente) {
+		return dao.save(paciente);
 	}
 
 	@Override

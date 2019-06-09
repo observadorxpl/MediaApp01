@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.joseluis.dao.IEspecialidadDAO;
 import com.joseluis.model.Especialidad;
+import com.joseluis.repository.IEspecialidadDAO;
 
 @Service
 public class EspecialidadServiceImpl implements IEspecialidadService{
@@ -19,8 +19,8 @@ public class EspecialidadServiceImpl implements IEspecialidadService{
 	}
 	
 	@Override
-	public void modificar(Especialidad especialidad) {
-		dao.save(especialidad);
+	public Especialidad modificar(Especialidad especialidad) {
+		return dao.save(especialidad);
 	}
 	
 	@Override

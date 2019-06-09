@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.joseluis.dao.IExamenDAO;
 import com.joseluis.model.Examen;
+import com.joseluis.repository.IExamenDAO;
 @Service
 public class ExamenServiceImpl implements IExamenService{
 
@@ -18,8 +18,8 @@ public class ExamenServiceImpl implements IExamenService{
 	}
 
 	@Override
-	public void modificar(Examen examen) {
-		dao.save(examen);
+	public Examen modificar(Examen examen) {
+		return dao.save(examen);
 	}
 
 	@Override

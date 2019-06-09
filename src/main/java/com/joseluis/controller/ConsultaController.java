@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,12 +17,12 @@ import com.joseluis.service.IConsultaService;
 import com.joseluis.util.ConsultaListaExamen;
 
 @RestController
-@RequestMapping(value= "/consulta")
+@RequestMapping(value= "/consultas")
 public class ConsultaController {
 	@Autowired
 	private IConsultaService service;
 
-	@GetMapping(value = "/listar", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping
 	public ResponseEntity<List<Consulta>> listar(){
 		List<Consulta> lista = new ArrayList<>();
 		try {
@@ -35,11 +34,11 @@ public class ConsultaController {
 	}
 		
 	
-	@PostMapping(value = "/registrar", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Consulta> registrar(@RequestBody ConsultaListaExamen consulta){
+	@PostMapping
+	public ResponseEntity<Consulta> registrar(@RequestBody ConsultaListaExamen consultaListaExamenes){
 		Consulta con = new Consulta();
 		try {
-			con = service.registrar(consulta);
+			con = service.registrarTransaccional(consultaListaExamenes);
 		} catch (Exception e) {
 			new ResponseEntity<Consulta>(con, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
